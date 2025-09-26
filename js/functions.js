@@ -5,8 +5,6 @@ const checkLengthString = function (string, length) {
   }
   return false;
 };
-//checkLengthString('проверяемая строка', 10);
-
 
 // Функция для проверки, является ли строка палиндромом
 const isPalindrome = function (string) {
@@ -21,9 +19,8 @@ const isPalindrome = function (string) {
   }
   return false;
 };
-//isPalindrome('Лёша на полке клопа нашёл ');
 
-
+// Функция принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа
 const returnNumber = function (string) {
   string = string.toString();
 
@@ -41,41 +38,63 @@ const returnNumber = function (string) {
   for (let j = 0; j < count; j++) {
     let elementString = '';
     let k;
-    for (j === 0 ?  k = 0 : k = (arrayIndexs[j - 1]); k < arrayIndexs[j]; k++) {
+    for (j === 0 ? k = 0 : k = (arrayIndexs[j - 1]); k < arrayIndexs[j]; k++) {
       elementString = elementString + string[k];
     }
     arrayValue.push(elementString);
   }
 
-
   let message = '';
   for (let j = 0; j < arrayValue.length; j++) {
     const temp = (arrayValue[j].replaceAll(' ', ''));
     for (let i = 0; i < temp.length; i++) {
-      if (!Number.isNaN(parseInt(temp[i]))) {
+      if (!Number.isNaN(parseInt(temp[i], 10))) {
         message += temp[i];
       }
     }
   }
 
-
   if(message.length > 0) {
     return (Number(message));
   }
   return NaN;
-
 };
 
-//returnNumber(1000);
-//returnNumber('2023 год');
-//returnNumber('ECMAScript 2022');
-//returnNumber('1 кефир, 0.5 батона');
-//returnNumber('агент 007');
-//returnNumber('а я томат');
 /*
-имяФункции('2023 год');            // 2023
-имяФункции('ECMAScript 2022');     // 2022
-имяФункции('1 кефир, 0.5 батона'); // 105
-имяФункции('агент 007');           // 7
-имяФункции('а я томат');           // NaN
+//Тесты
+console.log('Функция для проверки длины строки');
+// Строка короче 20 символов
+console.log('1. Ожидаю "true", получаю - ', checkLengthString('проверяемая строка', 20));
+// Длина строки ровно 18 символов
+console.log('2. Ожидаю "true", получаю - ', checkLengthString('проверяемая строка', 18));
+// Строка длиннее 10 символов
+console.log('3. Ожидаю "false", получаю - ', checkLengthString('проверяемая строка', 10));
+
+console.log('Функция для проверки, является ли строка палиндромом');
+// Строка является палиндромом
+console.log('1. Ожидаю "true", получаю - ', isPalindrome('топот'));
+// Длина строки ровно 18 символов
+console.log('2. Ожидаю "true", получаю - ', isPalindrome('ДовОд'));
+// Строка длиннее 10 символов
+console.log('3. Ожидаю "false", получаю - ', isPalindrome('Кекс'));
+// Это палиндром
+console.log('4. Ожидаю "true", получаю - ', isPalindrome('Лёша на полке клопа нашёл '));
+
+console.log('Функция принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа');
+// Строка '2023 год'
+console.log('1. Ожидаю "2023", получаю - ', returnNumber('2023 год'));
+// Строка 'ECMAScript 2022'
+console.log('2. Ожидаю "2022", получаю - ', returnNumber('ECMAScript 2022'));
+// Строка '1 кефир, 0.5 батона'
+console.log('3. Ожидаю "105", получаю - ', returnNumber('1 кефир, 0.5 батона'));
+// Строка 'а я томат'
+console.log('4. Ожидаю "NaN", получаю - ', returnNumber('а я томат'));
+// Строка 'агент 007'
+console.log('5. Ожидаю "7", получаю - ', returnNumber('агент 007'));
+// Число 2023
+console.log('6. Ожидаю "2023", получаю - ', returnNumber(2023));
+// Число -1
+console.log('7. Ожидаю "1", получаю - ', returnNumber(-1));
+// Число 1.5
+console.log('8. Ожидаю "15", получаю - ', returnNumber(1.5));
 */
