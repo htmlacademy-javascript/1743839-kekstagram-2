@@ -60,7 +60,111 @@ const returnNumber = function (string) {
   return NaN;
 };
 
-/*
+// Делу — время: функцию, которая принимает время начала и конца рабочего дня, а также время старта и продолжительность встречи в минутах
+// и возвращает true, если встреча не выходит за рамки рабочего дня, и false, если выходит.
+let showMitting = function (a, b, c, d) {
+  // проверка корректности времени
+    let correctedTime = function () {
+    let times = [a,b,c];
+    let correctTimes = [];
+    for(let i=0; i<times.length; i++) {
+      let t = times[i];
+      if (t.length === 5) {
+        t = t;
+      } else if(t.length === 4) {
+        if (t[1] === ':') {
+          t = '0' + t;
+        } else if (t[2] === ':') {
+          t = t[0] + t[1] + t[2] +'0' + t[3];
+        }
+      } else if(a.length === 3) {
+        t = '0' + t[0] + t[1] + '0' + t[2];
+      }
+      correctTimes.push(t);
+    };
+    return correctTimes;
+  };
+
+  let correctTimes = correctedTime();
+  a = correctTimes[0];
+  b = correctTimes[1];
+  c = correctTimes[2];
+
+  // расчет продолжительности встречи
+  let calculateMeetingTime = function(d){
+    let hour;
+    let minute;
+    let timeMeeting = '01:00';
+    if (d<60) {
+      hour = 0;
+      minute = d;
+      if (d < 10) {
+        timeMeeting = '00:0' + minute;
+      }
+        timeMeeting = '00:' + minute;
+      } else if (d>60) {
+        hour = Math.floor(d/60);
+        minute = d - hour*60;
+        if (minute < 10) {
+          minute = '0' + minute;
+        }
+        if (hour>=10) {
+          timeMeeting = hour + ':'+ minute;
+        }  else {
+        timeMeeting = '0'+ hour + ':'+ minute;  }
+      }
+    return timeMeeting;
+  }
+
+  //расчет времени окончания встречи
+  let calculateTimeEndingMeeting = function (c) {
+    let startHour = Number(c.slice(0,2));
+    let startMinute = Number(c.slice(3,5));
+    let timeMeeting = calculateMeetingTime(d);
+    let hourMeeting = Number(timeMeeting.slice(0,2));
+    let minuteMeeting = Number(timeMeeting.slice(3,5));
+    let endHour = startHour + hourMeeting;
+    let endMinute = startMinute + minuteMeeting;
+    if(endMinute === 0) {
+      endMinute = '00'
+    }
+    if (endMinute > 60 || endMinute === 60) {
+      endHour = endHour + Math.floor(endMinute/60);
+      endMinute = endMinute - 60;
+      if(endMinute === 0) {
+        endMinute = '00'
+      }
+    }
+    let timeMeetingEnd = endHour + ':' + endMinute;
+    return timeMeetingEnd;
+  };
+
+
+  //сравнение времени окончания встречи со временем окончания раб.дня
+  let compareTime = function () {
+    if (Number(a.slice(0,2)) > Number(c.slice(0,2))) {
+      return false;
+    } else if (d/60 > 24) {
+      return false;
+    } else {
+      let timeMeetingEnd = calculateTimeEndingMeeting(c);
+      if (Number(timeMeetingEnd.slice(0,2)) < Number(b.slice(0,2))) {
+        return true;
+      } else if (Number(timeMeetingEnd.slice(0,2)) > Number(b.slice(0,2))) {
+        return false;
+      } else if (Number(timeMeetingEnd.slice(0,2)) === Number(b.slice(0,2))) {
+        if(Number(timeMeetingEnd.slice(3,5)) < Number(b.slice(3,5)) ||
+          Number(timeMeetingEnd.slice(3,5)) === Number(b.slice(3,5))) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+  }
+  return compareTime();
+};
+
 //Тесты
 console.log('Функция для проверки длины строки');
 // Строка короче 20 символов
@@ -97,4 +201,10 @@ console.log('6. Ожидаю "2023", получаю - ', returnNumber(2023));
 console.log('7. Ожидаю "1", получаю - ', returnNumber(-1));
 // Число 1.5
 console.log('8. Ожидаю "15", получаю - ', returnNumber(1.5));
-*/
+
+console.log('Делу — время');
+console.log('1. Ожидаю "true", получаю - ', showMitting('08:00', '17:30', '14:00', 90));
+console.log('2. Ожидаю "true", получаю - ', showMitting('8:0', '10:0', '8:0', 120));
+console.log('3. Ожидаю "false", получаю - ', showMitting('08:00', '14:30', '14:00', 90));
+console.log('4. Ожидаю "false", получаю - ', showMitting('14:00', '17:30', '08:0', 90));
+console.log('5. Ожидаю "false", получаю - ', showMitting('8:00', '17:30', '08:00', 900));
