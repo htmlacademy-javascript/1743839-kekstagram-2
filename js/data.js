@@ -31,7 +31,9 @@ const getInitialData = function () {
     'Александр',
     'Артем',
     'Матвей',
-    'Тимофей'
+    'Тимофей',
+    'Андрей',
+    'Дмитрий'
   ];
 
   const MESSAGES_USERS = [
