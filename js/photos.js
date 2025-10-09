@@ -16,8 +16,8 @@ const generatePhotoDescription = function () {
   };
 };
 
-const getPhotoDescription = function () {
+const getPhotos = function () {
   return Array.from({length: INITIAL_DATA.COUNT_GENERATED_OBJECTS}, generatePhotoDescription);
 };
 
-export { getPhotoDescription };
+export { getPhotos };
