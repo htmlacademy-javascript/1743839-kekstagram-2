@@ -1,7 +1,8 @@
 import { getPhotos } from './photos.js';
 
+const photos = getPhotos();
+
 const displayPhotos = function () {
-  const photos = getPhotos();
   const picturesContainer = document.querySelector('.pictures');
   const templatePicture = document.querySelector('#picture').content;
   const elementPicture = templatePicture.querySelector('.picture');
@@ -9,6 +10,8 @@ const displayPhotos = function () {
 
   const displayPhoto = function (element) {
     const picture = elementPicture.cloneNode(true);
+
+    picture.dataset.photoId = element.id;
     picture.querySelector('.picture__img').src = element.url;
     picture.querySelector('.picture__img').alt = element.description;
     picture.querySelector('.picture__likes').textContent = element.likes;
@@ -24,3 +27,5 @@ const displayPhotos = function () {
 };
 
 displayPhotos();
+
+export {photos};
