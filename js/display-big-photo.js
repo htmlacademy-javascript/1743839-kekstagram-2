@@ -54,11 +54,11 @@ const onKeydownEsc = (evt) => {
   }
 };
 
-const closeBigPhoto = () => {
+function closeBigPhoto () {
   bigPicture.classList.add('hidden');
   bodyModalOpen.classList.remove('.modal-open');
   bigPictureCancel.removeEventListener('click', onBigPhotoClickClose);
   document.removeEventListener('keydown', onKeydownEsc);
-};
+}
 
 export {displayImage, onBigPhotoClickClose, onKeydownEsc};

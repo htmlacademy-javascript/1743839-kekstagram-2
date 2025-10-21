@@ -6,9 +6,10 @@ const bodyModalOpen = document.querySelector('body');
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
 
 picturesContainer.addEventListener('click', (evt) => {
-  if(evt.target.closest('.picture')) {
+  const currentPictuer = evt.target.closest('.picture');
+  if(currentPictuer) {
     evt.preventDefault();
-    const elementId = evt.target.parentNode.dataset.photoId;
+    const elementId = currentPictuer.dataset.photoId;
     displayImage(elementId);
     bigPicture.classList.remove('hidden');
     bodyModalOpen.classList.add('.modal-open');
